@@ -1,0 +1,45 @@
+CREATE TABLE "User" (
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(255) NOT NULL,
+	email VARCHAR(255) UNIQUE NOT NULL,
+	password VARCHAR(255) NOT NULL,
+	user_type VARCHAR(50) NOT NULL CHECK (user_type IN ('admin', 'customer'))
+);
+
+CREATE TABLE "Product" (
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(255) NOT NULL,
+	description TEXT,
+	price DECIMAL(10, 2) NOT NULL,
+	stock INTEGER NOT NULL,
+	image_url VARCHAR(255),
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE "Order" (
+	id SERIAL PRIMARY KEY,
+	user_id INTEGER REFERENCES "User" (id) ON DELETE CASCADE,
+	order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	status VARCHAR(50) NOT NULL CHECK (status IN ('pending', 'completed', 'canceled'))
+);
+
+CREATE TABLE "OrderItem" (
+	id SERIAL PRIMARY KEY,
+	order_id INTEGER REFERENCES "Order" (id) ON DELETE CASCADE,
+	product_id INTEGER REFERENCES "Product" (id) ON DELETE CASCADE,
+	quantity INTEGER NOT NULL,
+	unit_price DECIMAL(10, 2) NOT NULL
+);
+
+CREATE TABLE "Cart" (
+	id SERIAL PRIMARY KEY,
+	user_id INTEGER REFERENCES "User" (id) ON DELETE CASCADE
+);
+
+CREATE TABLE "CartItem" (
+	id SERIAL PRIMARY KEY,
+	cart_id INTEGER REFERENCES "Cart" (id) ON DELETE CASCADE,
+	product_id INTEGER REFERENCES "Product" (id) ON DELETE CASCADE,
+	quantity INTEGER NOT NULL
+);
