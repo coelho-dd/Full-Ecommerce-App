@@ -27,7 +27,7 @@ class Product(models.Model):
     stock = models.IntegerField(null=False)
     image_url = models.CharField(max_length=255, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    update_at = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __srt__(self):
         return self.name
@@ -44,7 +44,7 @@ class Order(models.Model):
     ]
 
     id = models.AutoField(primary_key=True)
-    user_id = models.ForeignKey('User', on_delete=models.CASCADE)
+    user = models.ForeignKey('User', on_delete=models.CASCADE)
     order_date = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, null=False)
 
@@ -57,8 +57,8 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
     id = models.AutoField(primary_key=True)
-    order_id = models.ForeignKey('Order', on_delete=models.CASCADE)
-    product_id = models.ForeignKey('Product', on_delete=models.CASCADE)
+    order = models.ForeignKey('Order', on_delete=models.CASCADE)
+    product = models.ForeignKey('Product', on_delete=models.CASCADE)
     quantity = models.IntegerField(null=False)
     unit_price = models.DecimalField(max_digits=10, decimal_places=2, null=False)
 
@@ -71,7 +71,7 @@ class OrderItem(models.Model):
 
 class Cart(models.Model):
     id = models.AutoField(primary_key=True)
-    user_id = models.ForeignKey('User', on_delete=models.CASCADE)
+    user = models.ForeignKey('User', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'Cart {self.id} for User {self.user_id}'
@@ -82,8 +82,8 @@ class Cart(models.Model):
 
 class CartItem(models.Model):
     id = models.AutoField(primary_key=True)
-    cart_id = models.ForeignKey('Cart', on_delete=models.CASCADE)
-    product_id = models.ForeignKey('Product', on_delete=models.CASCADE)
+    cart = models.ForeignKey('Cart', on_delete=models.CASCADE)
+    product = models.ForeignKey('Product', on_delete=models.CASCADE)
     quantity = models.IntegerField(null=False)
 
     def __str__(self):
