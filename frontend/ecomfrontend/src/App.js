@@ -5,6 +5,7 @@ import Navbar from './components/navbar';
 import Home from './pages/home';
 import ProductList from './pages/productList';
 import ProductDetail from './pages/productDetail';
+import Purchase from './pages/purchase';
 
 function App() {
   return (
@@ -13,11 +14,10 @@ function App() {
         <Navbar />
 
         <Routes>
-          <Route exact path='/' element={<Home />} />
-
-          <Route exact path='/products' element={<ProductList />} />
-
-          <Route exact path='/products/:id' element={<ProductDetail />} />
+          <Route path='/' element={<Home />} />
+          <Route path='/products' element={<ProductList />} />
+          <Route path='/products/:id' element={<ProductDetail />} />
+          <Route path='/purchase' element={<Purchase />} />
         </Routes>
       </Router>
     </>
