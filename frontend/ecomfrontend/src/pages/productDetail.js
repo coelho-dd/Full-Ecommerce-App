@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const ProductDetail = () => {
     const { id } = useParams();
@@ -48,10 +48,8 @@ const ProductDetail = () => {
                     className="w-full h-auto rounded shadow-lg mb-4" 
                 />
                 <p className="text-xl font-semibold">Price: ${product.price}</p>
-                <p className="mt-2 text-gray-700">{product.description}</p>
-                <button className="mt-4 px-6 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600 transition">
-                    Buy It Now
-                </button>
+                <p className="mt-2 mb-5 text-gray-700">{product.description}</p>
+                <Link to="/purchase" className="mt-4 px-6 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600 transition">Buy It Now</Link>
             </div>
         </div>
     );

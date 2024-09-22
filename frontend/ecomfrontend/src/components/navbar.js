@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -28,9 +29,9 @@ const Navbar = () => {
                 </div>
 
                 <div className="hidden md:flex space-x-4">
-                    <a href="#" className="text-white hover:text-gray-400">Home</a>
-                    <a href="#about" className="text-white hover:text-gray-400">Sobre nós</a>
-                    <a href="#" className="text-white hover:text-gray-400">Produtos</a>
+                    <Link to="/" className="text-white hover:text-gray-400">Home</Link>
+                    <Link to="/" className="text-white hover:text-gray-400">Sobre nós</Link>
+                    <Link to="/products" className="text-white hover:text-gray-400">Produtos</Link>
                 </div>
 
                 <div className="hidden md:flex space-x-4">
@@ -46,9 +47,9 @@ const Navbar = () => {
             {isOpen && (
                 <div className="md:hidden">
                     <div className="flex flex-col items-center space-y-2 mt-4">
-                        <a href="#" className="text-white hover:text-gray-400">Home</a>
-                        <a href="#" className="text-white hover:text-gray-400">About</a>
-                        <a href="#" className="text-white hover:text-gray-400">Contact</a>
+                        <Link to="/" className="text-white hover:text-gray-400">Home</Link>
+                        <Link to="/" className="text-white hover:text-gray-400">Sobre nós</Link>
+                        <Link to="/products" className="text-white hover:text-gray-400">Produtos</Link>
                         <button className="bg-transparent text-white border border-white px-4 py-2 rounded hover:bg-white hover:text-gray-800 w-full">
                             Login
                         </button>
