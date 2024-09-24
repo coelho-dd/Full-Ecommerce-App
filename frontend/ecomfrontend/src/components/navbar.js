@@ -35,12 +35,12 @@ const Navbar = () => {
                 </div>
 
                 <div className="hidden md:flex space-x-4">
-                    <button className="bg-transparent text-white border border-white px-4 py-2 rounded hover:bg-white hover:text-gray-800">
+                    <Link to="/login" className="bg-transparent text-white border border-white px-4 py-2 rounded hover:bg-white hover:text-gray-800">
                         Login
-                    </button>
-                    <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                    </Link>
+                    <Link to="/register" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
                         Cadastrar
-                    </button>
+                    </Link>
                 </div>
             </div>
 
@@ -50,12 +50,12 @@ const Navbar = () => {
                         <Link to="/" className="text-white hover:text-gray-400">Home</Link>
                         <Link to="/" className="text-white hover:text-gray-400">Sobre nós</Link>
                         <Link to="/products" className="text-white hover:text-gray-400">Produtos</Link>
-                        <button className="bg-transparent text-white border border-white px-4 py-2 rounded hover:bg-white hover:text-gray-800 w-full">
+                        <Link to="/login" className="bg-transparent text-white border border-white px-4 py-2 rounded hover:bg-white hover:text-gray-800 w-full">
                             Login
-                        </button>
-                        <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-full">
+                        </Link>
+                        <Link to="/register" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-full">
                             Cadastrar
-                        </button>
+                        </Link>
                     </div>
                 </div>
             )}

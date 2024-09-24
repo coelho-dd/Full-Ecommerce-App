@@ -2,11 +2,13 @@ from django.shortcuts import render
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from .models import User, Product, Order, OrderItem, Cart, CartItem
 from .api.serializers import UserSerializer, ProductSerializer, OrderSerializer, OrderItemSerializer, CartSerializer, CartItemSerializer
-from django.contrib.auth.models import User
+from .models import User
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -14,7 +16,7 @@ class UserViewSet(viewsets.ModelViewSet):
     
     def get_permissions(self):
         if self.action == 'create':
-            self.permission_classes = [IsAthenticated]
+            self.permission_classes = [IsAuthenticated]
         else:
             self.permission_classes = [AllowAny]
 
@@ -23,6 +25,8 @@ class UserViewSet(viewsets.ModelViewSet):
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [AllowAny]
 
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
@@ -40,21 +44,20 @@ class CartItemViewSet(viewsets.ModelViewSet):
     queryset = CartItem.objects.all()
     serializer_class = CartItemSerializer
 
+@permission_classes([AllowAny])
 class RegisterView(APIView):
-    permission_classes = [AllowAny]
-
     def post(self, request):
-        username = request.data.get('username')
-        password = request.data.get('password')
+        name = request.data.get('name')
         email = request.data.get('email')
+        password = request.data.get('password')
 
-        if User.objects.filter(username=username).exists():
-            return Response({"error": "Username already exists"}, status=status.HTTP_400_BAD_REQUEST)
+        if not name or not password or not email:
+            return Response({"error": "Todos os campos são obrigatórios"}, status=status.HTTP_400_BAD_REQUEST)
 
-        user = User.objects.create_user(username=username, password=password, email=email)
-        refresh = RefreshToken.for_user(user)
+        if User.objects.filter(email=email).exists():
+            return Response({"error": "Este email já está cadastrado"}, status=status.HTTP_400_BAD_REQUEST)
 
-        return Response({
-            "refresh": str(refresh),
-            "access": str(refresh.access_token),
-        }, status=status.HTTP_201_CREATED)
+        user = User.objects.create_user(name=name, password=password, email=email)
+        user.save()
+
+        return Response({"message": "Usuário registrado com sucesso"}, status=status.HTTP_201_CREATED)
