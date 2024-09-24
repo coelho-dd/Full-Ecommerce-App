@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const HeroSection = () => {
   return (
@@ -6,9 +7,9 @@ const HeroSection = () => {
       <div className="flex-1 flex flex-col justify-center items-center">
         <h1 className="text-5xl font-bold mb-2">Nome da Empresa</h1>
         <h2 className="text-xl mb-4">Seu subtítulo aqui</h2>
-        <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-56">
+        <Link to="/products" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-56 text-center">
           Conhecer os Produtos
-        </button>
+        </Link>
       </div>
       <div className="flex-1 mt-6 md:mt-0 flex justify-center">
         <img
