@@ -23,6 +23,10 @@ function Login() {
                 email: formData.email,
                 password: formData.password
             });
+
+            localStorage.setItem('access_token', response.data.access);
+            localStorage.setItem('refresh_token', response.data.refresh);
+
             setToken(response.data.access);
             setMessage('Login realizado com sucesso!');
         } catch (error) {

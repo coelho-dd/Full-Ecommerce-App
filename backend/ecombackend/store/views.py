@@ -6,6 +6,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework_simplejwt.views import TokenObtainPairView
+from .api.serializers import CustomTokenObtainPairSerializer
 from .models import User, Product, Order, OrderItem, Cart, CartItem
 from .api.serializers import UserSerializer, ProductSerializer, OrderSerializer, OrderItemSerializer, CartSerializer, CartItemSerializer
 from .models import User
@@ -61,3 +63,6 @@ class RegisterView(APIView):
         user.save()
 
         return Response({"message": "Usuário registrado com sucesso"}, status=status.HTTP_201_CREATED)
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer

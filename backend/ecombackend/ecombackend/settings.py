@@ -62,6 +62,10 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
